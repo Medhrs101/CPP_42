@@ -1,0 +1,30 @@
+NAME = Bureaucrat
+LIB = Bureaucrat.a
+SRC =./main.cpp \
+	./Bureaucrat.cpp \
+	./Form.cpp \
+	./ShrubberyCreationForm.cpp \
+	./RobotomyRequestForm.cpp \
+	./PresidentialPardonForm.cpp \
+	./Intern.cpp
+HEADERS = Bureaucrat.hpp Intern.hpp Form.hpp ShrubberyCreationForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp
+OBJ = $(SRC:.cpp=.o)
+
+FLAGS = -std=c++98 -Wall -Wextra -Werror
+
+all: $(NAME)
+
+$(NAME) : $(OBJ) 
+	ar rcs $(LIB) $(OBJ)
+	clang++  $(FLAGS) $(LIB) -o $(NAME)
+
+%.o: %.cpp $(HEADERS)
+	clang++ $(FLAGS) -o $@ -c $<
+
+clean:
+	@rm -rf $(OBJ) $(LIB)
+
+fclean: clean
+	@rm -f $(NAME) *_shrubbery
+
+re: fclean all
